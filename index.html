@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CliniScribe AI Pitch Deck</title>
+    <!-- Importing Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* 1. THE SETUP */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #111827; 
+            font-family: 'Lato', sans-serif;
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            min-height: 100vh;
+            padding: 0; 
+        }
+
+        .deck-wrapper {
+            position: relative;
+            width: 1280px;
+            height: 720px;
+            max-width: 100%; /* Responsive */
+            aspect-ratio: 16 / 9;
+            overflow: hidden; /* This is the key */
+            border-radius: 8px;
+        }
+        
+        .slide-track {
+            display: flex;
+            height: 100%;
+            width: 1300%; 
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .slide-container {
+            align-items: center;
+            background-color: #111827; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+            padding: 60px;
+            position: relative;
+            width: calc(100% / 13); 
+            height: 100%;
+        }
+
+        /* 1.1 BACKGROUND STYLING */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0) 70%);
+            top: -150px;
+            left: -150px;
+            z-index: 0;
+        }
+        
+        .slide-container::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, rgba(6, 182, 212, 0) 70%);
+            bottom: -100px;
+            right: -100px;
+            z-index: 0;
+        }
+
+        .slide-container > * {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        /* 2. CONSISTENT TYPOGRAPHY */
+
+        .slide-container h1,
+        .slide-container h2,
+        .slide-container h3,
+        .slide-container h4 {
+            color: #FFFFFF; 
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+        }
+
+        .slide-container p,
+        .slide-container li,
+        .slide-container .subtitle,
+        .slide-container .number-label,
+        .slide-container .legend li,
+        .slide-container .chart-summary,
+        .slide-container .bar .label,
+        .slide-container th,
+        .slide-container td {
+            color: #E5E7EB; 
+            font-family: 'Lato', sans-serif;
+        }
+
+        .slide-container h1 {
+            font-size: clamp(3rem, 6vw, 5.625rem); /* 90px */
+            font-weight: 800;
+        }
+
+        .slide-container .slide-title {
+            font-size: clamp(1.8rem, 3.5vw, 2.8125rem); /* 45px - UNCHANGED */
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: left;
+            width: 100%;
+        }
+
+        .slide-container h3 {
+            font-size: clamp(1.25rem, 2.5vw, 2rem); /* 32px - UNCHANGED */
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .slide-container p,
+        .slide-container li,
+        .slide-container .subtitle,
+        .slide-container .legend li,
+        .slide-container .chart-summary,
+        .slide-container .bar .label,
+        .slide-container th,
+        .slide-container td {
+            font-size: clamp(1.1rem, 1.9vw, 1.5rem); /* INCREASED from 1.375rem */
+            line-height: 1.6;
+        }
+
+        .slide-container .subtitle {
+            margin: 20px auto;
+            color: #E5E7EB; 
+            font-size: clamp(1.2rem, 2.1vw, 1.6rem); /* INCREASED */
+        }
+
+        .slide-container .content-area {
+            align-items: center;
+            display: flex;
+            flex-grow: 1;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .accent-text {
+            color: #10B981; 
+        }
+        .xyz{
+            color: #10B981; 
+            font-size: 50px;
+        }
+        
+         .xyza{
+            color: #eaf1ee; 
+            font-size: 50px;
+        }
+
+        /* 3. LAYOUT DEFINITIONS */
+        
+        .title-layout {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .two-column {
+            align-items: flex-start;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            width: 100%;
+        }
+        
+        .two-column.align-items-center {
+             align-items: center;
+        }
+
+        .two-column.tiled {
+            align-items: stretch;
+        }
+
+        .two-column.tiled > div,
+        .tile { 
+            background-color: #1F2937; 
+            border-radius: 12px;
+            border: 1px solid #374151;
+            padding: 40px;
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+        
+        .two-column.tiled > div:hover,
+        .tile:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.1);
+        }
+
+        .two-column.tiled h3,
+        .tile h3 { 
+            color: #10B981; 
+        }
+
+        .two-column ul {
+            list-style: none; 
+            margin: 0;
+            padding-left: 10px;
+        }
+
+        .two-column li {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .two-column li::before {
+            content: '•';
+            color: #10B981;
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.5rem;
+            line-height: 1.1;
+        }
+        
+        .tiled-content {
+            align-items: stretch;
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .tile {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            justify-content: flex-start;
+            text-align: center;
+        }
+
+        .tile .icon {
+            color: #10B981; 
+            font-size: clamp(2rem, 4vw, 3rem); /* 48px */
+            margin-bottom: 20px;
+        }
+        
+        /* Team tile specific styles */
+        .team-tile {
+             flex: 1;
+             text-align: center;
+             background-color: #1F2937; 
+             border-radius: 12px;
+             border: 1px solid #374151;
+             padding: 30px;
+             transition: all 0.3s ease;
+        }
+        .team-tile:hover {
+             transform: translateY(-5px);
+             box-shadow: 0 5px 15px rgba(16, 185, 129, 0.1);
+        }
+        .team-tile h3 {
+            color: #10B981;
+            font-size: clamp(1.2rem, 2vw, 1.8rem);
+            margin-bottom: 10px;
+        }
+         .team-tile p {
+            color: #D1D5DB;
+            font-size: clamp(1.1rem, 1.7vw, 1.4rem); /* INCREASED */
+            line-height: 1.4;
+        }
+
+
+        /* Styled_Bullet_Points */
+        .bullet-list {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .bullet-list ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .bullet-list li {
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .bullet-list i {
+            color: #10B981; 
+            font-size: clamp(1.1rem, 1.8vw, 1.5rem); /* 24px */
+            left: 0;
+            margin-top: 5px;
+            position: absolute;
+            text-align: center;
+            top: 0;
+        }
+
+        .bullet-list li strong {
+            color: #F3F4F6; 
+            font-weight: 700;
+        }
+        
+        /* Highlighted_Numbers */
+        .highlight-numbers-layout > div:first-child {
+            flex: 0 0 40%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .highlight-numbers-layout .number {
+            color: #10B981; 
+            font-size: clamp(6rem, 12vw, 9.375rem); /* 150px */
+            font-weight: 800;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1;
+        }
+
+        .highlight-numbers-layout .number-label {
+            font-size: clamp(1.2rem, 2.1vw, 1.6rem); /* INCREASED */
+            font-weight: 700;
+            color: #E5E7EB; /* Light gray label */
+        }
+
+        /* 4. CHART STYLING */
+
+        .chart-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        /* Bar_Chart_For_Comparisons */
+        .bar {
+            align-items: center;
+            display: flex;
+            gap: 20px;
+        }
+
+        .bar .label {
+            color: #D1D5DB; 
+            flex: 0 0 220px;
+            font-weight: 700;
+            text-align: right;
+            font-size: clamp(0.9rem, 1.4vw, 1.2rem); /* INCREASED */
+        }
+        
+        .two-column .bar .label {
+            flex-basis: 150px;
+            font-size: clamp(0.9rem, 1.2vw, 1.1rem); /* INCREASED */
+        }
+
+        .bar .bar-inner {
+            background-color: #374151; 
+            border-radius: 8px;
+            flex-grow: 1;
+            height: clamp(25px, 4vw, 45px);
+            overflow: hidden; 
+        }
+
+        .bar .bar-fill {
+            align-items: center;
+            border-radius: 8px;
+            color: #111827; 
+            display: flex;
+            font-size: clamp(0.9rem, 1.4vw, 1.2rem); /* INCREASED */
+            font-weight: 700;
+            height: 100%;
+            justify-content: flex-end;
+            padding-right: 15px;
+            transition: width 1s ease-out; 
+            width: 0; 
+        }
+        
+        .slide-container.active .bar-fill {
+            width: var(--bar-width);
+        }
+
+
+        /* Doughnut_Chart_For_Proportions */
+        .doughnut-chart-container {
+            align-items: center;
+            display: flex;
+            gap: 80px;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .doughnut-chart {
+            border-radius: 50%;
+            height: clamp(250px, 30vw, 380px);
+            width: clamp(250px, 30vw, 380px);
+            display: grid;
+            place-items: center;
+            transition: all 1s ease-out; 
+            transform: scale(0.9);
+            opacity: 0;
+            background: conic-gradient(#10B981 0% 0%, #06B6D4 0% 0%, #8B5CF6 0% 0%, #F59E0B 0% 0%) !important;
+        }
+        
+        .slide-container.active .doughnut-chart {
+            transform: scale(1);
+            opacity: 1;
+            background: conic-gradient(#10B981 0% 45%, #06B6D4 45% 75%, #8B5CF6 75% 90%, #F59E0B 90% 100%) !important;
+        }
+
+        .doughnut-chart::before {
+            content: '';
+            width: 60%;
+            height: 60%;
+            background: #111827; /* Background color */
+            border-radius: 50%;
+        }
+
+        .legend {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .legend li {
+            align-items: center;
+            color: #D1D5DB; 
+            display: flex;
+        }
+
+        .legend .color-box {
+            border-radius: 4px;
+            height: 22px;
+            margin-right: 15px;
+            width: 22px;
+        }
+
+        .chart-summary {
+            font-style: italic;
+            margin-top: 20px;
+            max-width: 90%;
+            text-align: center;
+            color: #9CA3AF; 
+        }
+
+        /* Table */
+        .table-layout {
+            width: 100%;
+        }
+
+        .table-layout table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .table-layout th,
+        .table-layout td {
+            border-bottom: 1px solid #374151; 
+            padding: 18px 24px;
+            text-align: left;
+            color: #E5E7EB; 
+        }
+
+        .table-layout th {
+            background-color: #1F2937; 
+            color: #FFFFFF; 
+            font-size: clamp(1rem, 1.6vw, 1.25rem); /* 20px - UNCHANGED */
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .table-layout td {
+             font-size: clamp(1rem, 1.6vw, 1.3rem); /* INCREASED */
+        }
+        
+        /* New styles for Slide 11 (was 10) table */
+        #slide11 .table-layout th,
+        #slide11 .table-layout td {
+            padding: 14px 18px; /* Slightly tighter padding */
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem); /* Smaller text */
+            text-align: center;
+        }
+        #slide11 .table-layout th:first-child,
+        #slide11 .table-layout td:first-child {
+            text-align: left;
+            font-weight: 700;
+        }
+
+        .table-layout tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .table-layout .fa-check {
+            color: #10B981;
+            font-size: 1.5rem; /* Made icons bigger */
+        }
+        .table-layout .fa-times {
+            color: #EF4444;
+            font-size: 1.5rem; /* Made icons bigger */
+        }
+        
+        /* Specific for slide 11's (was 10) "Why We Win" */
+        #slide11 .bullet-list {
+            max-width: 100%;
+            padding-left: 20px;
+        }
+        #slide11 .bullet-list h3 {
+             color: #FFFFFF;
+        }
+         #slide11 .bullet-list li {
+            font-size: clamp(1rem, 1.8vw, 1.4rem); /* INCREASED */
+            margin-bottom: 25px;
+        }
+        
+        /* NEW: Styles for Slide 9 (Business Model) Tiled Layout */
+        #slide9 .two-column.tiled h3 {
+            font-size: clamp(1.4rem, 2.5vw, 2.2rem); /* Bigger heading for plans */
+            margin-bottom: 25px;
+            border-bottom: 2px solid #10B981;
+            padding-bottom: 10px;
+        }
+        
+        #slide9 .two-column.tiled ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        #slide9 .two-column.tiled li {
+            padding-left: 0; /* Override default */
+            font-size: clamp(1rem, 1.7vw, 1.4rem); /* Font for list */
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            color: #D1D5DB;
+        }
+        #slide9 .two-column.tiled li::before {
+            content: none; /* Remove default bullet */
+        }
+        #slide9 .two-column.tiled li i {
+            font-size: 1.3rem;
+            margin-right: 15px;
+            width: 20px; /* Align text */
+        }
+        #slide9 .two-column.tiled li .fa-check {
+            color: #10B981;
+        }
+        #slide9 .two-column.tiled li .fa-times {
+            color: #EF4444;
+        }
+        /* Highlight the Enterprise plan */
+        #slide9 .two-column.tiled > div:last-child {
+            border-color: #10B981;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.1);
+        }
+
+
+        /* Q&A */
+        .qa-layout {
+            text-align: center;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .qa-layout h2 {
+            font-size: clamp(4rem, 8vw, 6rem); /* 80px */
+            margin-bottom: 20px;
+            color: #10B981; 
+        }
+
+        .qa-layout p {
+            font-size: clamp(1.2rem, 2.1vw, 1.6rem); /* INCREASED */
+            color: #E5E7EB;
+        }
+        
+        /* 5. ANIMATION & NAVIGATION */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .slide-container.active .fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.3);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 100;
+            opacity: 0.3;
+            transition: opacity 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .deck-wrapper:hover .nav-button {
+            opacity: 1;
+        }
+        
+        .nav-button:hover {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        #prev-button {
+            left: 15px;
+        }
+        
+        #next-button {
+            right: 15px;
+        }
+        
+        .slide-counter {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            z-index: 100;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="deck-wrapper">
+    <div class="slide-track">
+        
+        <!-- Slide 1: Title_Slide -->
+        <div class="slide-container" id="slide1">
+            <div class="title-layout fade-in">
+                <h1><span class="accent-text">CLin</span>IQ</h1>
+                <p class="subtitle">Clarity for clinicians. Confidence for patients.
+
+
+                 
+                </p>
+                <br><br>
+                <h1><span class="xyz">Zero</span><span class="xyza">One</span></h1>
+            </div>
+        </div>
+
+        <!-- Slide 2: Two_Column_Tiled_Text -->
+        <div class="slide-container" id="slide2">
+            <h2 class="slide-title fade-in">The <span class="accent-text">Problem</span>: A Two-Sided Crisis</h2>
+            <div class="content-area">
+                <div class="two-column tiled">
+                    <div class="fade-in" style="transition-delay: 0.2s;">
+                        <h3>1. Clinician Burnout</h3>
+                        <p>Doctors, nurses, and clinicians are overwhelmed. They spend an average of 2-3 hours *per day* on administrative tasks and data entry, leading to widespread fatigue and taking time away from direct patient care.</p>
+                    </div>
+                    <div class="fade-in" style="transition-delay: 0.4s;">
+                        <h3>2. Diagnostic Errors</h3>
+                        <p>Critical patient information is often buried within thousands of words of unstructured, free-text clinical notes. Key symptoms and historical data are easily missed, contributing to diagnostic errors that affect 1 in 20 adults.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Styled_Bullet_Points (BADGE REMOVED, NEW POINT ADDED) -->
+        <div class="slide-container" id="slide3">
+            <h2 class="slide-title fade-in">The <span class="accent-text">Solution</span>: An Intelligent Co-pilot</h2>
+            <div class="content-area">
+                <div class="bullet-list">
+                     <ul>
+                        <li class="fade-in" style="transition-delay: 0.2s;"><i class="fa-solid fa-robot"></i><strong>What it is:</strong> A GenAI platform that securely integrates with existing EHR systems.</li>
+                        <li class="fade-in" style="transition-delay: 0.4s;"><i class="fa-solid fa-file-lines"></i><strong>Output 1: Factual Summary:</strong> It transforms chaotic notes into a concise, scannable summary of the patient's condition, history, and status.</li>
+                        <li class="fade-in" style="transition-delay: 0.6s;"><i class="fa-solid fa-list-check"></i><strong>Output 2: Prioritized Diagnoses:</strong> It generates a list of potential differential diagnoses based on the note's content.</li>
+                        <!-- NEW BULLET POINT -->
+                        <li class="fade-in" style="transition-delay: 0.8s;"><i class="fa-solid fa-lightbulb"></i><strong>The Innovation:</strong> This isn't just a summary. The *justified diagnosis* with direct text references is our key innovation, acting as a true diagnostic aid.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Highlighted_Numbers -->
+        <div class="slide-container" id="slide4">
+            <h2 class="slide-title fade-in">Feature 1: Factual <span class="accent-text">Summarization</span></h2>
+            <div class="content-area">
+                <div class="two-column highlight-numbers-layout">
+                    <div class="fade-in" style="transition-delay: 0.2s;">
+                        <div class="number">90%</div>
+                        <div class="number-label">Reduction in Note-Reading Time</div>
+                    </div>
+                    <div class="fade-in" style="transition-delay: 0.4s;">
+                        <h3>From Chaos to Clarity</h3>
+                        <p>Our first key feature extracts all relevant patient history, symptoms, medications, and lab results, presenting them in a scannable, standardized format. This allows clinicians to understand a complex case in seconds, not 30 minutes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Styled_Bullet_Points-->
+        <div class="slide-container" id="slide5">
+            <h2 class="slide-title fade-in">Feature 2: Hypothesis <span class="accent-text">Generation</span></h2>
+            <div class="content-area">
+                <div class="bullet-list">
+                    <ul>
+                        <li class="fade-in" style="transition-delay: 0.2s;"><i class="fa-solid fa-brain"></i><strong>Beyond Summary:</strong> We move from simple summarization to actionable clinical insight.</li>
+                        <li class="fade-in" style="transition-delay: 0.4s;"><i class="fa-solid fa-list-check"></i><strong>Prioritized Diagnoses:</strong> The model generates a list of potential differential diagnoses, ranked by probability based on the note's content.</li>
+                        <li class="fade-in" style="transition-delay: 0.6s;"><i class="fa-solid fa-magnifying-glass-chart"></i><strong>Ensured Traceability:</strong> This is our key differentiator. The model provides **traceability**, referencing the *exact* part of the note that justifies each hypothesis, eliminating "black box" AI.</li>
+                        <li class="fade-in" style="transition-delay: 0.8s;"><i class="fa-solid fa-circle-check"></i><strong>Reduced Errors:</strong> By surfacing possibilities, we help clinicians avoid cognitive biases and reduce the risk of missed diagnoses.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 6: Impact -->
+        <div class="slide-container" id="slide6">
+            <h2 class="slide-title fade-in">The <span class="accent-text">Impact</span>: A 360° Benefit</h2>
+            <div class="content-area">
+                <div class="tiled-content">
+                    <div class="tile fade-in" style="transition-delay: 0.2s;">
+                        <div class="icon"><i class="fa-solid fa-user-shield"></i></div>
+                        <h3>For Patients</h3>
+                        <p>Better, faster, and more accurate diagnoses. Reduces the risk of "missed" symptoms and improves overall quality of care.</p>
+                    </div>
+                    <div class="tile fade-in" style="transition-delay: 0.4s;">
+                        <div class="icon"><i class="fa-solid fa-user-doctor"></i></div>
+                        <h3>For Clinicians</h3>
+                        <p>Saves 2-3 hours per day, drastically reducing administrative burden and burnout. Restores focus to patient interaction.</p>
+                    </div>
+                    <div class="tile fade-in" style="transition-delay: 0.6s;">
+                        <div class="icon"><i class="fa-solid fa-hospital"></i></div>
+                        <h3>For Hospitals</h3>
+                        <p>Improves diagnostic accuracy, enhances operational efficiency, and reduces costly errors, leading to better system-wide outcomes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Tiled_Text_With_Icons (Was Slide 6) -->
+        <div class="slide-container" id="slide7">
+            <h2 class="slide-title fade-in">How It Works: The <span class="accent-text">"Secret Sauce"</span></h2>
+            <div class="content-area">
+                <div class="tiled-content">
+                    <div class="tile fade-in" style="transition-delay: 0.2s;">
+                        <div class="icon"><i class="fa-solid fa-file-medical"></i></div>
+                        <h3>1. Input Note</h3>
+                        <p>Unstructured, free-text clinical notes are securely fed into the CLinIQ AI engine.</p>
+                    </div>
+                    <div class="tile fade-in" style="transition-delay: 0.4s;">
+                        <div class="icon"><i class="fa-solid fa-robot"></i></div>
+                        <h3>2. LLM + RAG</h3>
+                        <p>Our model uses Retrieval-Augmented Generation (RAG) to cross-reference the note with a trusted medical knowledge base (like PubMed).</p>
+                    </div>
+                    <div class="tile fade-in" style="transition-delay: 0.6s;">
+                        <div class="icon"><i class="fa-solid fa-clipboard-check"></i></div>
+                        <h3>3. Verified Output</h3>
+                        <p>This grounding prevents AI "hallucinations" and produces a medically accurate summary and justified diagnoses.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Tiled_Text_With_Icons (Was Slide 7) -->
+        <div class="slide-container" id="slide8">
+            <h2 class="slide-title fade-in">Product <span class="accent-text">Principles</span></h2>
+            <div class="content-area">
+                <div class="tiled-content">
+                    <div class="tile fade-in" style="transition-delay: 0.2s;">
+                        <div class="icon"><i class="fa-solid fa-shield-halved"></i></div>
+                        <h3>Secure & Compliant</h3>
+                        <p>Built from the ground up to be HIPAA-compliant, with data anonymization and on-premise deployment options for hospitals.</p>
+                    </div>
+                    <div class="tile fade-in" style="transition-delay: 0.4s;">
+                        <div class="icon"><i class="fa-solid fa-computer-mouse"></i></div>
+                        <h3>Simple & Intuitive</h3>
+                        <p>Our interface is designed *for* clinicians, not techies. It requires minimal training and provides value in under 5 minutes.</p>
+                    </div>
+                    <div class="tile fade-in" style="transition-delay: 0.6s;">
+                        <div class="icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+                        <h3>Fully Integrated</h3>
+                        <p>Designed to work seamlessly inside existing EHRs like Epic and Cerner, so it's part of the natural workflow, not another login.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Business Model (REBUILT) -->
+        <div class="slide-container" id="slide9">
+            <h2 class="slide-title fade-in">Business Model: <span class="accent-text">B2B SaaS</span></h2>
+            <div class="content-area">
+                <div class="two-column tiled">
+                    <div class="fade-in" style="transition-delay: 0.2s;">
+                        <h3>Pro Plan</h3>
+                        <p style="margin-bottom: 25px; color: #9CA3AF; font-size: 1.2rem; line-height: 1.4;">Best for individual clinicians or small private clinics.</p>
+                        <ul>
+                            <li><i class="fa-solid fa-check"></i> Note Summarization</li>
+                            <li><i class="fa-solid fa-check"></i> Diagnosis Hypothesis</li>
+                            <li><i class="fa-solid fa-check"></i> HIPAA-Compliant Security</li>
+                            <li><i class="fa-solid fa-times"></i> EHR Integration</li>
+                            <li><i class="fa-solid fa-times"></i> Custom Knowledge Base</li>
+                        </ul>
+                    </div>
+                    <div class="fade-in" style="transition-delay: 0.4s;">
+                        <h3>Enterprise Plan</h3>
+                        <p style="margin-bottom: 25px; color: #9CA3AF; font-size: 1.2rem; line-height: 1.4;">For hospital systems and large telehealth providers.</p>
+                        <ul>
+                            <li><i class="fa-solid fa-check"></i> All Pro Features</li>
+                            <li><i class="fa-solid fa-check"></i> Full EHR Integration</li>
+                            <li><i class="fa-solid fa-check"></i> Custom Knowledge Base</li>
+                            <li><i class="fa-solid fa-check"></i> On-Premise Deployment</li>
+                            <li><i class="fa-solid fa-check"></i> Priority 24/7 Support</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Doughnut_Chart (Was Slide 9) -->
+        <div class="slide-container" id="slide10">
+            <h2 class="slide-title fade-in">Market <span class="accent-text">Opportunity</span></h2>
+            <div class="content-area" style="flex-direction: column; justify-content: center;">
+                <div class="chart-container">
+                    <div class="doughnut-chart-container">
+                        <div classs="fade-in" style="transition-delay: 0.2s;">
+                            <div class="doughnut-chart"></div>
+                        </div>
+                        <ul class="legend fade-in" style="transition-delay: 0.4s;">
+                            <li><div class="color-box" style="background-color: #10B981;"></div>Hospitals (45%)</li>
+                            <li><div class="color-box" style="background-color: #06B6D4;"></div>Private Clinics (30%)</li>
+                            <li><div class="color-box" style="background-color: #8B5CF6;"></div>Telehealth Platforms (15%)</li>
+                            <li><div class="color-box" style="background-color: #F59E0B;"></div>Research & Pharma (10%)</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="chart-summary fade-in" style="transition-delay: 0.6s;">Our initial target is the 30% private clinic market, offering the fastest path to adoption, followed by large hospital systems.</p>
+            </div>
+        </div>
+
+        <!-- Slide 11: Feature Table (Was Slide 10) -->
+        <div class="slide-container" id="slide11">
+            <h2 class="slide-title fade-in">Competitive <span class="accent-text">Advantage</span></h2>
+            <div class="content-area">
+                <div class="two-column align-items-center" style="gap: 70px;">
+                    <!-- Left Column: Feature Table -->
+                    <div class="table-layout fade-in" style="transition-delay: 0.2s;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>General AI</th>
+                                    <th>Summarizers</th>
+                                    <th>CLinIQ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Basic Summary</td>
+                                    <td><i class="fa-solid fa-check"></i></td>
+                                    <td><i class="fa-solid fa-check"></i></td>
+                                    <td><i class="fa-solid fa-check"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>HIPAA-Compliant</td>
+                                    <td><i class="fa-solid fa-times"></i></td>
+                                    <td><i class="fa-solid fa-check"></i></td>
+                                    <td><i class="fa-solid fa-check"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>EHR Integration</td>
+                                    <td><i class="fa-solid fa-times"></i></td>
+                                    <td><i class="fa-solid fa-times"></i></td>
+                                    <td><i class="fa-solid fa-check"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>**Justified Diagnosis**</td>
+                                    <td><i class="fa-solid fa-times"></i></td>
+                                    <td><i class="fa-solid fa-times"></i></td>
+                                    <td><i class="fa-solid fa-check" style="font-size: 2rem;"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Right Column: Why We Win -->
+                    <div class="bullet-list fade-in" style="transition-delay: 0.4s;">
+                        <h3>Why We Win:</h3>
+                         <ul>
+                            <li><i class="fa-solid fa-magnifying-glass-chart"></i><strong>True Justification:</strong> We are the only tool offering auditable, justified differential diagnosis, not just a summary.</li>
+                            <li><i class="fa-solid fa-brain"></i><strong>Medically-Tuned:</strong> Our RAG model is tuned on medical data, preventing dangerous hallucinations.</li>
+                             <li><i class="fa-solid fa-puzzle-piece"></i><strong>Workflow Native:</strong> Designed to live *inside* the EHR, not as a separate app.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Slide 12: Tiled_Text (Was Slide 11) -->
+        <div class="slide-container" id="slide12">
+            <h2 class="slide-title fade-in">Meet the <span class="accent-text">Team</span></h2>
+            <div class="content-area">
+                <div class="tiled-content">
+                    <div class="team-tile fade-in" style="transition-delay: 0.2s;">
+                        <!-- You can replace these placeholders -->
+                        <h3>Saurabh Gupta</h3>
+                        <p>Frontend, UI/UX, Presentation</p>
+                    </div>
+                    <div class="team-tile fade-in" style="transition-delay: 0.4s;">
+                        <h3>Veer Somaiya</h3>
+                        <p>AI, NLP, Model Development.</p>
+                    </div>
+                    <div class="team-tile fade-in" style="transition-delay: 0.6s;">
+                        <h3>Vikrant Rai</h3>
+                        <p>Backend, API, Integration</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Q&A (Was Slide 12) -->
+        <div class="slide-container" id="slide13">
+            <div class="qa-layout fade-in">
+                <h2>Questions?</h2>
+                <p>Thank you.</p>
+            </div>
+        </div>
+    </div> <!-- end .slide-track -->
+
+    <!-- Navigation -->
+    <button id="prev-button" class="nav-button"><i class="fas fa-chevron-left"></i></button>
+    <button id="next-button" class="nav-button"><i class="fas fa-chevron-right"></i></button>
+    
+    <div class="slide-counter" id="slide-counter">1 / 13</div>
+
+</div> <!-- end .deck-wrapper -->
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const track = document.querySelector('.slide-track');
+        const slides = Array.from(track.children);
+        const nextButton = document.getElementById('next-button');
+        const prevButton = document.getElementById('prev-button');
+        const counter = document.getElementById('slide-counter');
+        const slideCount = slides.length; 
+        let currentSlide = 0;
+
+        // Function to move to a specific slide
+        const goToSlide = (slideIndex) => {
+            if (slideIndex < 0) {
+                slideIndex = 0;
+            } else if (slideIndex >= slideCount) {
+                slideIndex = slideCount - 1;
+            }
+            
+            // Move the track
+            track.style.transform = `translateX(-${slideIndex * (100 / slideCount)}%)`;
+            
+            // Update active class for animations
+            if (slides[currentSlide]) {
+                 slides[currentSlide].classList.remove('active');
+            }
+            slides[slideIndex].classList.add('active');
+            
+            currentSlide = slideIndex;
+            
+            // Update counter
+            counter.textContent = `${currentSlide + 1} / ${slideCount}`;
+            
+            // Update button visibility
+            prevButton.style.display = currentSlide === 0 ? 'none' : 'block';
+            nextButton.style.display = currentSlide === slideCount - 1 ? 'none' : 'block';
+        };
+
+        // Button event listeners
+        nextButton.addEventListener('click', () => {
+            goToSlide(currentSlide + 1);
+        });
+
+        prevButton.addEventListener('click', () => {
+            goToSlide(currentSlide - 1);
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                goToSlide(currentSlide + 1);
+            } else if (e.key === 'ArrowLeft') {
+                goToSlide(currentSlide - 1);
+            }
+        });
+
+        // Initialize first slide
+        goToSlide(0);
+    });
+</script>
+
+</body>
+</html>
